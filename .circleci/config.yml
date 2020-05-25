@@ -29,9 +29,9 @@ jobs:
 
       - run:
           name: Deploy to AWS
-          command:
-            'chmod 400 ./ansible/firsttry.pem'
-            'ansible-playbook ./ansible/ec2_deploy.yml --user ubuntu --key-file ./ansible/firsttry.pem'
+          command: |
+            chmod 400 ./ansible/firsttry.pem
+            ansible-playbook ./ansible/ec2_deploy.yml --user ubuntu --key-file ./ansible/firsttry.pem
 
 workflows:
   version: 2.1
