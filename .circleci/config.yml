@@ -21,6 +21,8 @@ jobs:
       - image: circleci/python:3.8.1
     environment:
       - ANSIBLE_VAULT_PASSWORD_FILE: ./ansible/vault_pass.txt
+      - ANSIBLE_HOST_KEY_CHECKING: False
+
     steps:
       - attach_workspace:
           at: .
