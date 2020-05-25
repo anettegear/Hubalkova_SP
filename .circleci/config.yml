@@ -15,22 +15,32 @@ jobs:
          root: .
          paths:
             - .
-#  deploy:
-#     <<: *vse
-#     steps:
-#        - attach_workspace:
-#           at: .
-#        - run:
-#           command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN
+  deploy:
+    <<: *vse
+    docker:
+      - image: circleci/python:3.8.1
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Install Dependencies
+          command:
+            pip3 install ansible boto boto3
+
+      - run:
+          name: Deploy to AWS
+          command:
+            chmod 400 ./ansible/firsttry.pem
+            ansible-playbook ./ansible/ec2_deploy.yml --user ubuntu --key-file ./ansible/firsttry.pem
 
 workflows:
   version: 2.1
   build:
     jobs:
       - build
-#      - deploy:
-#         requires:
-#            - build
-#         filters:
-#            branches:
-#               only: master
+      - deploy:
+         requires:
+            - build
+         filters:
+            branches:
+               only: master
