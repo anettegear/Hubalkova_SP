@@ -42,3 +42,5 @@ npm run wdio
 ### Copyright and license
 
 The MIT License (MIT). Please see License File for more information.
+
+Trigger pipelines
